@@ -2,7 +2,7 @@
 
 Submitted by: **Derrick Woodall**
 
-About this web app: **App description here**
+About this web app: **This week’s web assignment builds on the original list-based web app by connecting it to a PostgreSQL database so that the event data is stored and retrieved dynamically instead of being hardcoded. The application uses a backend built with Node.js and Express to serve data from the database, while the frontend continues to use vanilla HTML, CSS, and JavaScript with PicoCSS for styling. As a result, the web app can now display multiple events from the database and allow users to view detailed information for each item in the list.**
 
 Time spent: **8** hours
 
