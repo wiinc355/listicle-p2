@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Event</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+  <link rel="stylesheet" href="/styles.css" />
+  
+</head>
+<body>
+  <main class="container">
+    <nav>
+      <ul>
+        <li><strong>Discover Local Music</strong></li>
+      </ul>
+      <ul>
+        <li><a href="/">Home</a></li>
+      </ul>
+    </nav>
+
+    <header>
+      <h1>Edit Event</h1>
+      <p class="muted">Update an event in the database.</p>
+    </header>
+
+    <section id="edit-container">
+      <p>Loading event...</p>
+    </section>
+  </main>
+
+  <script>
+    const editContainer = document.getElementById('edit-container');
+
+    const getEventId = () => {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('id');
+    };
+
+    const normalizeArtists = (artists) => {
+      if (Array.isArray(artists)) return artists.join(', ');
+      return artists || '';
+    };
+
+    const renderForm = (event) => {
+      editContainer.innerHTML = `
+        <article>
+          <img class="preview" src="${event.imageUrl || ''}" alt="${event.name || 'Event image'}" />
+
+          <form id="edit-form">
+            <label>
+              Event Name
+              <input type="text" name="name" value="${event.name || ''}" required />
+            </label>
+
+            <label>
+              Artists
+              <input type="text" name="artists" value="${normalizeArtists(event.artists)}" placeholder="Artist 1, Artist 2" />
+            </label>
+
+            <label>
+              Date and Time
+              <input type="datetime-local" name="dateTime" value="${event.dateTime ? event.dateTime.slice(0,16) : ''}" required />
+            </label>
+
+            <label>
+              Venue
+              <input type="text" name="venue" value="${event.venue || ''}" required />
+            </label>
+
+            <label>
+              Genre
+              <input type="text" name="genre" value="${event.genre || ''}" />
+            </label>
+
+            <label>
+              Ticket Price
+              <input type="number" name="ticketPrice" value="${event.ticketPrice ?? 0}" min="0" step="0.01" />
+            </label>
+
+            <label>
+              Image URL
+              <input type="url" name="imageUrl" value="${event.imageUrl || ''}" />
+            </label>
+
+            <label>
+              Description
+              <textarea name="description" rows="5">${event.description || ''}</textarea>
+            </label>
+
+            <div class="actions">
+              <button type="submit">Save Changes</button>
+              <a href="/event.html?id=${event.id}" role="button" class="secondary">Cancel</a>
+            </div>
+
+            <p id="status" class="status muted"></p>
+          </form>
+        </article>
+      `;
+
+      const form = document.getElementById('edit-form');
+      const status = document.getElementById('status');
+      const imageInput = form.elements.imageUrl;
+      const preview = editContainer.querySelector('.preview');
+
+      imageInput.addEventListener('input', () => {
+        preview.src = imageInput.value || '';
+      });
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        status.textContent = 'Saving changes...';
+
+        const updatedEvent = {
+          name: form.elements.name.value.trim(),
+          artists: form.elements.artists.value
+            .split(',')
+            .map((artist) => artist.trim())
+            .filter(Boolean),
+          dateTime: form.elements.dateTime.value,
+          venue: form.elements.venue.value.trim(),
+          genre: form.elements.genre.value.trim(),
+          ticketPrice: Number(form.elements.ticketPrice.value),
+          imageUrl: form.elements.imageUrl.value.trim(),
+          description: form.elements.description.value.trim()
+        };
+
+        try {
+          const response = await fetch(`/events/${event.id}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedEvent)
+          });
+
+          if (!response.ok) {
+            throw new Error('Failed to update event');
+          }
+
+          status.textContent = 'Event updated successfully.';
+          window.location.href = `/event.html?id=${event.id}`;
+        } catch (error) {
+          console.error(error);
+          status.textContent = 'Unable to save changes right now.';
+        }
+      });
+    };
+
+    const loadEvent = async () => {
+      const id = getEventId();
+
+      if (!id) {
+        editContainer.innerHTML = '<p>Event ID not found.</p>';
+        return;
+      }
+
+      try {
+        const response = await fetch(`/events/${id}`);
+
+        if (!response.ok) {
+          throw new Error('Failed to load event');
+        }
+
+        const event = await response.json();
+        renderForm(event);
+      } catch (error) {
+        console.error(error);
+        editContainer.innerHTML = '<p>Unable to load event for editing.</p>';
+      }
+    };
+
+    loadEvent();
+  </script>
+</body>
+</html>

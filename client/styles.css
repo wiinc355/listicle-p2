@@ -1,0 +1,120 @@
+.muted {
+  opacity: 0.75;
+}
+
+/* grid layout */
+.grid {
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+/* event card */
+.card {
+  overflow: hidden;
+  padding: 0.6rem;
+  font-size: 0.9rem;
+}
+
+/* image size */
+.card-image,
+.detail-image {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+}
+
+/* title */
+.card-title {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+}
+
+/* metadata text */
+.event-meta {
+  font-size: 0.8rem;
+  margin-bottom: 0.2rem;
+}
+
+/* description */
+.event-description {
+  font-size: 0.85rem;
+}
+
+/* buttons smaller */
+button,
+[role="button"] {
+  padding: 0.35rem 0.6rem;
+  font-size: 0.8rem;
+}
+/* shrink everything inside the event details page */
+#event-details {
+  font-size: 0.8rem;
+}
+
+
+/* smaller title */
+#event-details h1 {
+  font-size: 1.2rem;
+  margin-bottom: 0.3rem;
+}
+
+/* smaller text */
+#event-details p {
+  font-size: 0.8rem;
+  margin-bottom: 0.2rem;
+}
+
+/* smaller labels */
+#event-details strong {
+  font-size: 0.8rem;
+}
+
+/* smaller image */
+#event-details img {
+  width: 100%;
+  max-height: 100px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+#event-details article {
+  padding: 0.8rem;
+}
+/* EDIT PAGE SIZE CONTROL */
+
+#edit-container {
+  font-size: 0.85rem;
+}
+
+#edit-container img.preview {
+  width: 100%;
+  max-height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+#edit-container label {
+  font-size: 0.85rem;
+}
+
+#edit-container input,
+#edit-container textarea {
+  font-size: 0.85rem;
+  padding: 0.35rem;
+}
+
+#edit-container button {
+  font-size: 0.8rem;
+  padding: 0.35rem 0.6rem;
+}
+
+#edit-container form {
+  gap: 0.5rem;
+}
+
+/* keep the page from stretching too wide */
+.container {
+  max-width: 700px;
+}
