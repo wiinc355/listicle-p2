@@ -29,7 +29,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented required features:
 
-<img src='https://github.com/wiinc355/listicle-p2/Listicle-p2-My-Walkthough.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://github.com/wiinc355/listicle-p2/blob/main/Listicle-p2-My-Walkthough.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 <!-- Replace this with whatever GIF tool you used! -->
 GIF created with ...  GIF tool here
