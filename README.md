@@ -19,11 +19,11 @@ The following **required** functionality is completed:
 
 The following **optional** features are implemented:
 
-- [ ] The user can search for items by a specific attribute
+- [X] The user can search for items by a specific attribute
 
 The following **additional** features are implemented:
 
-- [X] List anything else that you added to improve the site's functionality! ( ADMINISTRATOR CAN EDIT EVENT INFORMATION )
+- [X] List anything else that you added to improve the site's functionality! ( ADMINISTRATOR CAN LOGIN AND EDIT EVENT INFORMATION )
 
 ## Video Walkthrough
 

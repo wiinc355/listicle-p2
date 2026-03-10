@@ -9,9 +9,11 @@
     "reset": "node config/reset.js"
   },
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "cors": "^2.8.6",
     "dotenv": "^16.6.1",
     "express": "^4.22.1",
+    "express-session": "^1.19.0",
     "pg": "^8.20.0"
   },
   "devDependencies": {

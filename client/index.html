@@ -10,13 +10,31 @@
 <body>
   <main class="container">
     <nav>
-      <ul><li><strong>Discover Local Music</strong></li></ul>
+      <ul>
+      <li><strong>Discover Local Music</strong></li></ul>
+      <ul><li><a href="/edit-event.html?id=${event.id}" role="button" class="secondary">
+  Edit Event
+</a></li>
+      <li><button id="logout-button" class="secondary">Logout</button></li>
+      </ul>
     </nav>
 
     <header>
       <h1>Discover Local Music</h1>
       <p class="muted">Browse events. Click any item for details.</p>
     </header>
+    <section>
+  <form id="search-form">
+    <input
+      type="search"
+      id="search-input"
+      name="search"
+      placeholder="Search events by name, venue, genre..."
+    />
+    <button type="submit">Search</button>
+    <button type="button" id="clear-search" class="secondary">Clear</button>
+  </form>
+</section>
         <section id="events-container" class="grid"></section>
     
     <footer class="muted">

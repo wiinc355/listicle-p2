@@ -6,7 +6,26 @@ const router = express.Router()
 // GET ALL EVENTS
 router.get('/', async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM events ORDER BY id ASC')
+    const { search } = req.query
+
+    let query = 'SELECT * FROM events'
+    let values = []
+
+    if (search && search.trim() !== '') {
+      query += `
+        WHERE
+          name ILIKE $1 OR
+          venue ILIKE $1 OR
+          genre ILIKE $1 OR
+          description ILIKE $1 OR
+          artists::text ILIKE $1
+      `
+      values.push(`%${search.trim()}%`)
+    }
+
+    query += ' ORDER BY id ASC'
+
+    const result = await pool.query(query, values)
 
     const events = result.rows.map((row) => ({
       id: row.id,

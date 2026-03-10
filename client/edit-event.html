@@ -10,15 +10,7 @@
 </head>
 <body>
   <main class="container">
-    <nav>
-      <ul>
-        <li><strong>Discover Local Music</strong></li>
-      </ul>
-      <ul>
-        <li><a href="/">Home</a></li>
-      </ul>
-    </nav>
-
+    
     <header>
       <h1>Edit Event</h1>
       <p class="muted">Update an event in the database.</p>
@@ -29,7 +21,20 @@
     </section>
   </main>
 
+
   <script>
+    const checkAdmin = async () => {
+  const response = await fetch('/me')
+  const data = await response.json()
+
+  if (!data.isAdmin) {
+    window.location.href = '/login.html'
+    return false
+  }
+
+  return true
+}
+
     const editContainer = document.getElementById('edit-container');
 
     const getEventId = () => {
@@ -148,7 +153,10 @@
     };
 
     const loadEvent = async () => {
-      const id = getEventId();
+  const allowed = await checkAdmin()
+  if (!allowed) return
+
+  const id = getEventId()
 
       if (!id) {
         editContainer.innerHTML = '<p>Event ID not found.</p>';
